@@ -1,4 +1,4 @@
-# CPP_Builder
+# SFML_Test
 
 ## Introduction
 
@@ -35,11 +35,10 @@ dependence packages need to install
 ```bash
 apt install -y libsfml-dev 
 ```
-SFML default library path is here  
-`/lib/x86_64-linux-gnu/libsfml-*`
-libsfml-graphics.so
-libsfml-window.so
-libsfml-system.so
+SFML default library path is here `/lib/x86_64-linux-gnu/libsfml-*`  
+`libsfml-graphics.so`  
+`libsfml-window.so`  
+`libsfml-system.so`  
 
 ### Simple build
 ```bash

@@ -98,7 +98,6 @@ $(UTIL1_OBJ)/%.o: $(UTIL1_SRC)/%.cpp
 	@$(CXX) $(CXXFLAGS) -o $@ -c $<
 
 
-#g++ -g -std=c++11 -I./include -o obj/test-obj/test1.o -c test/test1.cpp
 $(TEST_OBJ)/%.o: $(TEST)/%.cpp
 	@echo [COMPILE] $(notdir  $@)
 	@$(CXX) $(CXXFLAGS) -o $@ -c $<

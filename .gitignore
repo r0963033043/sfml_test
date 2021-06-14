@@ -1,3 +1,6 @@
+.*.swp
+
 obj/
 *.o
-.*.swp
+
+bin/

@@ -9,14 +9,29 @@ int main(){
   printf("SFML\n");
 
   sf::RenderWindow window(sf::VideoMode(200, 200), "SFML works!");
+
+  // Create circle
   sf::CircleShape shape(100.f);
   shape.setFillColor(sf::Color::Green);
 
   while (window.isOpen()){
     sf::Event event;
+
     while (window.pollEvent(event)){
-      if (event.type == sf::Event::Closed)
-        window.close();
+
+      switch(event.type){
+        // While click close button
+        // or press any key
+        // then close window
+        case sf::Event::Closed:
+        case sf::Event::KeyPressed:
+          window.close();
+          break;
+
+        default:
+          break;
+      }
+
     }
 
     window.clear();

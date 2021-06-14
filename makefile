@@ -32,13 +32,18 @@ OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 
 # BUILD_TARGET
 BUILD_UTIL1 = util1
+
 BUILD_TEST1 = test1
 BUILD_TEST2 = test2
+BUILD_TEST3 = test3
+
 
 # main source
 UTIL1_SRC = $(UTIL)/util1
+
 TEST1_SRC = test1.cpp
 TEST2_SRC = test2.cpp
+TEST3_SRC = test3.cpp
 
 
 UTIL1_OBJ = $(OBJ)/util1-obj
@@ -47,16 +52,19 @@ UTIL1_OBJS = $(patsubst $(UTIL1_SRC)/%.cpp, $(UTIL1_OBJ)/%.o, $(UTIL1_SRCS))
 
 TEST_OBJ = $(OBJ)/test-obj
 TEST1_SRCS = $(wildcard $(TEST)/$(TEST1_SRC))
-TEST2_SRCS = $(wildcard $(TEST)/$(TEST2_SRC))
 TEST1_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST1_SRCS))
+TEST2_SRCS = $(wildcard $(TEST)/$(TEST2_SRC))
 TEST2_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST2_SRCS))
+TEST3_SRCS = $(wildcard $(TEST)/$(TEST3_SRC))
+TEST3_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST3_SRCS))
 
 
 
 all: dir-tree \
 	$(BUILD_UTIL1) \
 	$(BUILD_TEST1) \
-	$(BUILD_TEST2)
+	$(BUILD_TEST2) \
+	$(BUILD_TEST3)
 
 
 # target
@@ -71,7 +79,8 @@ all: dir-tree \
 
 $(BUILD_UTIL1): $(OBJS) $(UTIL1_OBJS)
 	@echo "[BUILD] util1"
-	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
 
 $(BUILD_TEST1): $(OBJS) $(TEST1_OBJS)
 	@echo "[BUILD] test1"
@@ -79,7 +88,11 @@ $(BUILD_TEST1): $(OBJS) $(TEST1_OBJS)
 
 $(BUILD_TEST2): $(OBJS) $(TEST2_OBJS)
 	@echo "[BUILD] test2"
-	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST3): $(OBJS) $(TEST3_OBJS)
+	@echo "[BUILD] test3"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 
 # lib sample: compile

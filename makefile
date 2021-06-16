@@ -15,7 +15,8 @@ INC = -I$(INCLUDE)
 CXX = g++
 CXXFLAGS = -g -std=c++11 $(INC)
 #LINK_OPTS = -L$(LIB) -lpthread -lboost_system
-LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system
+#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system
+LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl
 
 
 # Lib sample: object file
@@ -28,6 +29,12 @@ LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system
 
 SRCS = $(wildcard $(SRC)/*.cpp)
 OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
+SRCSC = $(wildcard $(SRC)/*.c)
+OBJSC = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCSC))
+#SRCS = $(wildcard $(SRC)/*.cpp $(SRC)/*.c)
+#OBJS = $(OBJ)/foo1.o $(OBJ)/game.o $(OBJ)/glad.o
+#OBJS = $(patsubst $(SRC)/%.cpp | $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
+#OBJS = $(patsubst $(SRC)/%.cpp $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
 
 # BUILD_TARGET
@@ -36,6 +43,7 @@ BUILD_UTIL1 = util1
 BUILD_TEST1 = test1
 BUILD_TEST2 = test2
 BUILD_TEST3 = test3
+BUILD_TEST4 = test4
 
 
 # main source
@@ -44,6 +52,7 @@ UTIL1_SRC = $(UTIL)/util1
 TEST1_SRC = test1.cpp
 TEST2_SRC = test2.cpp
 TEST3_SRC = test3.cpp
+TEST4_SRC = test4.cpp
 
 
 UTIL1_OBJ = $(OBJ)/util1-obj
@@ -57,6 +66,8 @@ TEST2_SRCS = $(wildcard $(TEST)/$(TEST2_SRC))
 TEST2_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST2_SRCS))
 TEST3_SRCS = $(wildcard $(TEST)/$(TEST3_SRC))
 TEST3_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST3_SRCS))
+TEST4_SRCS = $(wildcard $(TEST)/$(TEST4_SRC))
+TEST4_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST4_SRCS))
 
 
 
@@ -64,7 +75,8 @@ all: dir-tree \
 	$(BUILD_UTIL1) \
 	$(BUILD_TEST1) \
 	$(BUILD_TEST2) \
-	$(BUILD_TEST3)
+	$(BUILD_TEST3) \
+	$(BUILD_TEST4)
 
 
 # target
@@ -79,6 +91,9 @@ all: dir-tree \
 
 $(BUILD_UTIL1): $(OBJS) $(UTIL1_OBJS)
 	@echo "[BUILD] util1"
+	@echo "SRCS $(SRCS)"
+	@echo "OBJS $(OBJS)"
+	@echo "OBJSC $(OBJSC)"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 
@@ -94,6 +109,10 @@ $(BUILD_TEST3): $(OBJS) $(TEST3_OBJS)
 	@echo "[BUILD] test3"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
+$(BUILD_TEST4): $(OBJS) $(OBJSC) $(TEST4_OBJS)
+	@echo "[BUILD] test4"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
 
 # lib sample: compile
 # $(xxx_OBJ)/%.o: $(xxx_SRC)/%.cpp
@@ -102,6 +121,10 @@ $(BUILD_TEST3): $(OBJS) $(TEST3_OBJS)
 
 
 $(OBJ)/%.o: $(SRC)/%.cpp
+	@echo [COMPILE] $(notdir $@)
+	@$(CXX) $(CXXFLAGS) -o $@ -c $<
+
+$(OBJ)/%.o: $(SRC)/%.c
 	@echo [COMPILE] $(notdir $@)
 	@$(CXX) $(CXXFLAGS) -o $@ -c $<
 

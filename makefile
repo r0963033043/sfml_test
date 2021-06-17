@@ -15,7 +15,6 @@ INC = -I$(INCLUDE)
 CXX = g++
 CXXFLAGS = -g -std=c++11 $(INC)
 #LINK_OPTS = -L$(LIB) -lpthread -lboost_system
-#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system
 LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl
 
 
@@ -31,10 +30,6 @@ SRCS = $(wildcard $(SRC)/*.cpp)
 OBJS = $(patsubst $(SRC)/%.cpp, $(OBJ)/%.o, $(SRCS))
 SRCSC = $(wildcard $(SRC)/*.c)
 OBJSC = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCSC))
-#SRCS = $(wildcard $(SRC)/*.cpp $(SRC)/*.c)
-#OBJS = $(OBJ)/foo1.o $(OBJ)/game.o $(OBJ)/glad.o
-#OBJS = $(patsubst $(SRC)/%.cpp | $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
-#OBJS = $(patsubst $(SRC)/%.cpp $(SRC)/%.c, $(OBJ)/%.o, $(SRCS))
 
 
 # BUILD_TARGET
@@ -44,6 +39,10 @@ BUILD_TEST1 = test1
 BUILD_TEST2 = test2
 BUILD_TEST3 = test3
 BUILD_TEST4 = test4
+BUILD_TEST5 = test5
+BUILD_TEST6 = test6
+BUILD_TEST7 = test7
+BUILD_TEST8 = test8
 
 
 # main source
@@ -53,6 +52,10 @@ TEST1_SRC = test1.cpp
 TEST2_SRC = test2.cpp
 TEST3_SRC = test3.cpp
 TEST4_SRC = test4.cpp
+TEST5_SRC = test5.cpp
+TEST6_SRC = test6.cpp
+TEST7_SRC = test7.cpp
+TEST8_SRC = test8.cpp
 
 
 UTIL1_OBJ = $(OBJ)/util1-obj
@@ -68,6 +71,14 @@ TEST3_SRCS = $(wildcard $(TEST)/$(TEST3_SRC))
 TEST3_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST3_SRCS))
 TEST4_SRCS = $(wildcard $(TEST)/$(TEST4_SRC))
 TEST4_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST4_SRCS))
+TEST5_SRCS = $(wildcard $(TEST)/$(TEST5_SRC))
+TEST5_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST5_SRCS))
+TEST6_SRCS = $(wildcard $(TEST)/$(TEST6_SRC))
+TEST6_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST6_SRCS))
+TEST7_SRCS = $(wildcard $(TEST)/$(TEST7_SRC))
+TEST7_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST7_SRCS))
+TEST8_SRCS = $(wildcard $(TEST)/$(TEST8_SRC))
+TEST8_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST8_SRCS))
 
 
 
@@ -76,7 +87,11 @@ all: dir-tree \
 	$(BUILD_TEST1) \
 	$(BUILD_TEST2) \
 	$(BUILD_TEST3) \
-	$(BUILD_TEST4)
+	$(BUILD_TEST4) \
+	$(BUILD_TEST5) \
+	$(BUILD_TEST6) \
+	$(BUILD_TEST7) \
+	$(BUILD_TEST8)
 
 
 # target
@@ -91,9 +106,6 @@ all: dir-tree \
 
 $(BUILD_UTIL1): $(OBJS) $(UTIL1_OBJS)
 	@echo "[BUILD] util1"
-	@echo "SRCS $(SRCS)"
-	@echo "OBJS $(OBJS)"
-	@echo "OBJSC $(OBJSC)"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 
@@ -111,6 +123,22 @@ $(BUILD_TEST3): $(OBJS) $(TEST3_OBJS)
 
 $(BUILD_TEST4): $(OBJS) $(OBJSC) $(TEST4_OBJS)
 	@echo "[BUILD] test4"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST5): $(OBJS) $(OBJSC) $(TEST5_OBJS)
+	@echo "[BUILD] test5"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST6): $(OBJS) $(OBJSC) $(TEST6_OBJS)
+	@echo "[BUILD] test6"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST7): $(OBJS) $(OBJSC) $(TEST7_OBJS)
+	@echo "[BUILD] test7"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST8): $(OBJS) $(OBJSC) $(TEST8_OBJS)
+	@echo "[BUILD] test8"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 

@@ -1,7 +1,13 @@
 # SFML_Test
+[Tutorial](https://ithelp.ithome.com.tw/users/20130096/ironman/3531)  
+
+## Source
+libsfml-dev  
+[SFML](https://www.sfml-dev.org/index.php)  
+[imgui](https://github.com/ocornut/imgui)  
+[imgui-sfml](https://github.com/eliasdaler/imgui-sfml)  
 
 ## Introduction
-
 ### makefile
 Simple build
 ```bash
@@ -148,7 +154,17 @@ BUILD_TEST1
 `src` folder    : source `.cpp` or `.c` file  
 `include` folder: source `.h` file  
 `util` folder   : main project file  
+
 `test` folder   : test partial function  
+test1: draw circle, `sf::CircleShape`  
+test2: load picture, move by keyboard, sprite/texture  
+test3: same as test2, but write game class, include from ./src  
+test4: OpenGL(glad), init imgui example  
+test5: OpenGL, draw triangle, VBO, vertex/fragment shader  
+test6: same as test5, but use VAO
+test7: OpenGL, draw square, EBO
+
+
 
 ### Executable file
 place in `bin` folder
@@ -187,4 +203,17 @@ SFML default library path is here `/lib/x86_64-linux-gnu/libsfml-*`
 g++ -c test.cpp
 g++ test.o -o test -lsfml-graphics -lsfml-window -lsfml-system
 ```
+
+My version  
+Linux Mint = 20.1  
+GCC = 9.3.0  
+SFML = 2.5.1  
+OpenGL(glad) = 4.6  
+imgui = 1.83  
+imgui-sfml = 2.3    
+
+Download Link  
+glad  
+https://glad.dav1d.de/  
+
 

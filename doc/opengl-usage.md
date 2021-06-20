@@ -1,66 +1,11 @@
-# OpenGL function define
+# OpenGL usage
+GLSL: OpenGL 的 Shader 語言  
 Shader, Program, Buffer Object
 
 ## Shader
 著色器  
 Type: Vertex Shader, Fragment Shader  
 Function: Create, Bind, Compile, (Debug)  
-
-#### Create  
-`glCreateShader` — Creates a shader object  
-```cpp
-GLuint glCreateShader( GLenum shaderType );
-```
-shaderType: `GL_VERTEX_SHADER`, `GL_FRAGMENT_SHADER`  
-usage
-```cpp
-uint32_t shader;
-// or
-//GLuint shader;
-
-GLenum type;
-shader = glCreateShader(type);
-```
-
-#### Bind
-`glShaderSource` — Replaces the source code in a shader object
-```cpp
-void glShaderSource(
-  GLuint shader,
- 	GLsizei count,
-	const GLchar **string,
- 	const GLint *length);
-```
-usage
-```cpp
-const char *src;
-glShaderSource(shader, 1, &src, nullptr);
-```
-
-#### Compile
-```cpp
-void glCompileShader( GLuint shader );
-```
-usage
-```cpp
-glCompileShader(shader);
-```
-
-#### Debug
-`glGetShaderiv` — Returns a parameter from a shader object
-`glGetShaderInfoLog` — Returns the information log for a shader object
-```cpp
-int success;
-char log[512];
-glGetShaderiv(shader, GL_COMPILE_STATUS, &success);
-if(!success)
-{
-    glGetShaderInfoLog(shader, 512, nullptr, log);
-    printf("Error Shader %s compile error\n%s\n",
-        type == GL_VERTEX_SHADER ? "Vertex" : "Fragment", log);
-}
-```
-
 
 ### Vertex Shader  
 頂點著色器  
@@ -94,8 +39,7 @@ out vec4 FragColor;
 void main()
 {
     // RGBA
-    //FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-    FragColor = vec4(0.3f, 0.5f, 0.8f, 1.0f);
+    FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
 }
 )glsl";
 ```
@@ -136,70 +80,6 @@ if(!success){
 ## Buffer Object
 VBO, VAO, EBO  
 
-#### Generate
-Buffer:  
-`glGenBuffers` — generate buffer object names
-```cpp
-void glGenBuffers(
-  GLsizei n,
- 	GLuint *buffers);
-```
-Array:  
-`glGenVertexArrays` — generate vertex array object names
-```cpp
-void glGenVertexArrays(
-  GLsizei n,
- 	GLuint *arrays);
-```
-
-#### Bind
-Buffer:  
-`glBindBuffer` — bind a named buffer object
-```cpp
-void glBindBuffer(
-  GLenum target,
- 	GLuint buffer);
-```
-target: GL_ARRAY_BUFFER, GL_ELEMENT_ARRAY_BUFFER  
-
-Array:  
-`glBindVertexArray` — bind a vertex array object
-```cpp
-void glBindVertexArray( GLuint array );
-```
-
-
-#### Data
-Buffer:  
-`glBufferData` — creates and initializes a buffer object's data store
-```cpp
-void glBufferData(
-  GLenum target,
- 	GLsizeiptr size,
- 	const void *data,
- 	GLenum usage);
-```
-Array:  
-設定頂點屬性  
-`glVertexAttribPointer` — define an array of generic vertex attribute data
-```cpp
-void glVertexAttribPointer(
-    GLuint index,
-    GLint size,
-    GLenum type,
-    GLboolean normalized,
-    GLsizei stride,
-    const GLvoid * pointer);
-```
-stride: Specifies the byte offset between consecutive generic vertex attributes. If stride is 0, the generic vertex attributes are understood to be tightly packed in the array. The initial value is 0  
-pointer: Specifies a offset of the first component of the first generic vertex attribute in the array in the data store of the buffer currently bound to the GL_ARRAY_BUFFER target. The initial value is 0  
-
-`glEnableVertexAttribArray` — Enable or disable a generic vertex attribute array
-```cpp
-void glEnableVertexAttribArray(	GLuint index);
-```
-
-
 Vertex Input
 ```cpp
 float vertices[] = {
@@ -210,8 +90,8 @@ float vertices[] = {
 };
 
 uint32_t indices[] = {
-    {0, 1, 3}, // 第一個三角形
-    {1, 2, 3}  // 第二個三角形
+    0, 1, 3, // 第一個三角形
+    1, 2, 3  // 第二個三角形
 };
 ```
 
@@ -276,6 +156,8 @@ glDeleteVertexArrays(1, &vao);
 
 
 ### EBO
+Element Buffer Object (EBO)  
+或 Index Buffer Object (IBO)
 ```cpp
 ///// VAO: Bind /////
 ///// VBO: Bind, Data /////
@@ -299,12 +181,7 @@ glEnableVertexAttribArray(0);
 glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
 
 // 三角形，畫6個，EBO的type，從0開始
-glDrawElements(
-    GL_TRIANGLES,  // 形狀
-    6,               // 頂點數量
-    GL_UNSIGNED_INT, // EBO 的 value type
-    0                // offset
-);
+glDrawElements( GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0 );
 /* Loop End */
 
 // Delete

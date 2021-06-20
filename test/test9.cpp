@@ -6,6 +6,10 @@
 #include <glad/glad.h>
 #include <SFML/OpenGL.hpp>
 
+#include <GLFW/glfw3.h>
+
+#include <math.h>
+
 // Vertex Shader
 const char *vertexShaderSource = R"glsl(
 #version 450 core
@@ -21,11 +25,11 @@ const char* fragmentShaderSoucre = R"glsl(
 #version 450 core
 out vec4 FragColor;
 
+uniform vec4 ourColor; // 在 Code 中傳入
+
 void main()
 {
-    // RGBA
-    //FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);
-    FragColor = vec4(0.3f, 0.5f, 0.8f, 1.0f);
+    FragColor = ourColor;
 }
 )glsl";
 
@@ -97,7 +101,7 @@ uint32_t indices[] = {
 
 
 int main(){
-  printf("Test 8\n");
+  printf("Test 9\n");
 
   printf("SFML\n");
 
@@ -165,6 +169,7 @@ int main(){
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, ebo);
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+
     bool running = true;
     while (running)
     {
@@ -179,13 +184,23 @@ int main(){
 
         glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
+        // Uniform set color
+        // Pass the blue value
+        //float t = clk.getElapsedTime().asSeconds();
+        //float blue = (sin(t) / 2.f) + 0.5f;
+        float timeValue = glfwGetTime();
+        float blue = (sin(timeValue) / 2.f) + 0.5f;
+
         glUseProgram(program);
+
+        int vertexColorLocation = glGetUniformLocation(program, "ourColor");
+        glUniform4f(vertexColorLocation, 0.0f, 0.0f, blue, 1.0f);
+
+
         glBindVertexArray(vao);
 
         // Draw EBO
         glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
-        // look dispart line
-        glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
         glBindVertexArray(0);
 

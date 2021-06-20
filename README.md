@@ -1,11 +1,26 @@
 # SFML_Test
 [Tutorial](https://ithelp.ithome.com.tw/users/20130096/ironman/3531)  
+[GLFW](https://shnoh171.github.io/gpu%20and%20gpu%20programming/2019/08/26/installing-glfw-on-ubuntu.html)  
 
 ## Source
 libsfml-dev  
+Download Link  
 [SFML](https://www.sfml-dev.org/index.php)  
+[OpenGL/glad](https://glad.dav1d.de/)  
+[GLFW](https://www.glfw.org/download.html)  
 [imgui](https://github.com/ocornut/imgui)  
 [imgui-sfml](https://github.com/eliasdaler/imgui-sfml)  
+
+My version  
+Linux Mint = 20.1  
+GCC = 9.3.0  
+SFML = 2.5.1  
+OpenGL(glad) = 4.6  
+GLFW = 3.3.4  
+imgui = 1.83  
+imgui-sfml = 2.3    
+
+
 
 ## Introduction
 ### makefile
@@ -161,8 +176,10 @@ test2: load picture, move by keyboard, sprite/texture
 test3: same as test2, but write game class, include from ./src  
 test4: OpenGL(glad), init imgui example  
 test5: OpenGL, draw triangle, VBO, vertex/fragment shader  
-test6: same as test5, but use VAO
-test7: OpenGL, draw square, EBO
+test6: same as test5, but use VAO  
+test7: OpenGL, draw square, EBO  
+test8: same as test7, but look square inside line  
+test9: glfw, Uniform
 
 
 
@@ -189,31 +206,70 @@ make
 
 
 ## SFML
+### Install
 dependence packages need to install
 ```bash
-apt install -y libsfml-dev 
+apt install -y libsfml-dev
+apt install -y libglfw3 libglfw3-dev
 ```
-SFML default library path is here `/lib/x86_64-linux-gnu/libsfml-*`  
+check if install success
+```bash
+dpkg -l| grep sfml
+dpkg -l| grep glfw
+```
+
+default library(*.so) file is here  
+`/usr/lib/x86_64-linux-gnu/` (or `/lib/x86_64-linux-gnu/`)  
+```
+ls -al /lib
+lrwxrwxrwx 1 root root 7 Jun 10 18:48 /lib -> usr/lib/
+```
+
+SFML  
 `libsfml-graphics.so`  
 `libsfml-window.so`  
 `libsfml-system.so`  
+GLFW  
+`libglfw.so.3`  
+
+default header(*.h) file is here  
+`/usr/include`
+
+SFML  
+`SFML/`
+```bash
+drwxr-xr-x  2 root root 4096 Jun 10 21:02 Audio/
+-rw-r--r--  1 root root 2095 Oct 16  2018 Audio.hpp
+-rw-r--r--  1 root root 6655 Oct 16  2018 Config.hpp
+-rw-r--r--  1 root root 2639 Oct 16  2018 GpuPreference.hpp
+drwxr-xr-x  2 root root 4096 Jun 10 21:02 Graphics/
+-rw-r--r--  1 root root 2572 Oct 16  2018 Graphics.hpp
+-rw-r--r--  1 root root 1521 Oct 16  2018 Main.hpp
+drwxr-xr-x  2 root root 4096 Jun 10 21:02 Network/
+-rw-r--r--  1 root root 1982 Oct 16  2018 Network.hpp
+-rw-r--r--  1 root root 2429 Oct 16  2018 OpenGL.hpp
+drwxr-xr-x  2 root root 4096 Jun 10 21:02 System/
+-rw-r--r--  1 root root 2287 Oct 16  2018 System.hpp
+drwxr-xr-x  2 root root 4096 Jun 10 21:02 Window/
+-rw-r--r--  1 root root 2117 Oct 16  2018 Window.hpp
+```
+
+GLFW  
+`GLFW/`  
+`glfw3.h`  
+`glfw3native.h`  
+`
+
 
 ### Simple build
+build SFML
 ```bash
 g++ -c test.cpp
 g++ test.o -o test -lsfml-graphics -lsfml-window -lsfml-system
 ```
-
-My version  
-Linux Mint = 20.1  
-GCC = 9.3.0  
-SFML = 2.5.1  
-OpenGL(glad) = 4.6  
-imgui = 1.83  
-imgui-sfml = 2.3    
-
-Download Link  
-glad  
-https://glad.dav1d.de/  
-
+build with GLFW
+```bash
+g++ -c test.cpp
+g++ test.o -o test -lsfml-graphics -lsfml-window -lsfml-system -lglfw3
+```
 

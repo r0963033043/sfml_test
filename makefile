@@ -15,7 +15,11 @@ INC = -I$(INCLUDE)
 CXX = g++
 CXXFLAGS = -g -std=c++11 $(INC)
 #LINK_OPTS = -L$(LIB) -lpthread -lboost_system
-LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl
+#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl
+#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -lglfw3 -lGL -lX11 -lpthread -lXrandr -lXi
+#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -lglfw -lGL -lX11 -lpthread -lXrandr -lXi
+LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -lglfw -lGL -lX11 -lpthread -lXrandr
+#LINK_OPTS = -lsfml-graphics -lsfml-window -lsfml-system -ldl -lglfw
 
 
 # Lib sample: object file
@@ -35,14 +39,16 @@ OBJSC = $(patsubst $(SRC)/%.c, $(OBJ)/%.o, $(SRCSC))
 # BUILD_TARGET
 BUILD_UTIL1 = util1
 
-BUILD_TEST1 = test1
-BUILD_TEST2 = test2
-BUILD_TEST3 = test3
-BUILD_TEST4 = test4
-BUILD_TEST5 = test5
-BUILD_TEST6 = test6
-BUILD_TEST7 = test7
-BUILD_TEST8 = test8
+BUILD_TEST1 = circle
+BUILD_TEST2 = move-pic
+BUILD_TEST3 = move-pic-class
+BUILD_TEST4 = opengl
+#BUILD_TEST4 = imgui
+BUILD_TEST5 = trangle-vbo
+BUILD_TEST6 = trangle-vao
+BUILD_TEST7 = square-ebo
+BUILD_TEST8 = square-ebo-line
+BUILD_TEST9 = test9
 
 
 # main source
@@ -56,6 +62,7 @@ TEST5_SRC = test5.cpp
 TEST6_SRC = test6.cpp
 TEST7_SRC = test7.cpp
 TEST8_SRC = test8.cpp
+TEST9_SRC = test9.cpp
 
 
 UTIL1_OBJ = $(OBJ)/util1-obj
@@ -79,6 +86,8 @@ TEST7_SRCS = $(wildcard $(TEST)/$(TEST7_SRC))
 TEST7_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST7_SRCS))
 TEST8_SRCS = $(wildcard $(TEST)/$(TEST8_SRC))
 TEST8_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST8_SRCS))
+TEST9_SRCS = $(wildcard $(TEST)/$(TEST9_SRC))
+TEST9_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST9_SRCS))
 
 
 
@@ -91,7 +100,8 @@ all: dir-tree \
 	$(BUILD_TEST5) \
 	$(BUILD_TEST6) \
 	$(BUILD_TEST7) \
-	$(BUILD_TEST8)
+	$(BUILD_TEST8) \
+	$(BUILD_TEST9)
 
 
 # target
@@ -139,6 +149,10 @@ $(BUILD_TEST7): $(OBJS) $(OBJSC) $(TEST7_OBJS)
 
 $(BUILD_TEST8): $(OBJS) $(OBJSC) $(TEST8_OBJS)
 	@echo "[BUILD] test8"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST9): $(OBJS) $(OBJSC) $(TEST9_OBJS)
+	@echo "[BUILD] test9"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 

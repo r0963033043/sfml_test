@@ -97,7 +97,7 @@ uint32_t indices[] = {
 
 
 int main(){
-  printf("Test 6\n");
+  printf("Test 7\n");
 
   printf("SFML\n");
 

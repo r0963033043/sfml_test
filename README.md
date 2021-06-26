@@ -3,7 +3,8 @@
 [GLFW](https://shnoh171.github.io/gpu%20and%20gpu%20programming/2019/08/26/installing-glfw-on-ubuntu.html)  
 
 ## Source
-libsfml-dev  
+`libsfml-dev`  
+`libglfw3`, `libglfw3-dev`  
 Download Link  
 [SFML](https://www.sfml-dev.org/index.php)  
 [OpenGL/glad](https://glad.dav1d.de/)  
@@ -179,7 +180,9 @@ test5: OpenGL, draw triangle, VBO, vertex/fragment shader
 test6: same as test5, but use VAO  
 test7: OpenGL, draw square, EBO  
 test8: same as test7, but look square inside line  
-test9: glfw, Uniform
+test9: Uniform, change color by time  
+test10: same as test9, but use glfw  
+test11: difine color by array  
 
 
 
@@ -258,7 +261,7 @@ GLFW
 `GLFW/`  
 `glfw3.h`  
 `glfw3native.h`  
-`
+
 
 
 ### Simple build

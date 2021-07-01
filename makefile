@@ -48,9 +48,11 @@ BUILD_TEST5 = trangle-vbo
 BUILD_TEST6 = trangle-vao
 BUILD_TEST7 = square-ebo
 BUILD_TEST8 = square-ebo-line
-BUILD_TEST9 = test9
-BUILD_TEST10 = test10
-BUILD_TEST11 = test11
+BUILD_TEST9 = change-color
+BUILD_TEST10 = change-color2
+BUILD_TEST11 = 3color
+BUILD_TEST12 = test12
+BUILD_TEST13 = test13
 
 
 # main source
@@ -67,6 +69,8 @@ TEST8_SRC = test8.cpp
 TEST9_SRC = test9.cpp
 TEST10_SRC = test10.cpp
 TEST11_SRC = test11.cpp
+TEST12_SRC = test12.cpp
+TEST13_SRC = test13.cpp
 
 
 UTIL1_OBJ = $(OBJ)/util1-obj
@@ -96,11 +100,14 @@ TEST10_SRCS = $(wildcard $(TEST)/$(TEST10_SRC))
 TEST10_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST10_SRCS))
 TEST11_SRCS = $(wildcard $(TEST)/$(TEST11_SRC))
 TEST11_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST11_SRCS))
+TEST12_SRCS = $(wildcard $(TEST)/$(TEST12_SRC))
+TEST12_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST12_SRCS))
+TEST13_SRCS = $(wildcard $(TEST)/$(TEST13_SRC))
+TEST13_OBJS = $(patsubst $(TEST)/%.cpp, $(TEST_OBJ)/%.o, $(TEST13_SRCS))
 
 
 
 all: dir-tree \
-	$(BUILD_UTIL1) \
 	$(BUILD_TEST1) \
 	$(BUILD_TEST2) \
 	$(BUILD_TEST3) \
@@ -111,7 +118,10 @@ all: dir-tree \
 	$(BUILD_TEST8) \
 	$(BUILD_TEST9) \
 	$(BUILD_TEST10) \
-	$(BUILD_TEST11)
+	$(BUILD_TEST11) \
+	$(BUILD_TEST12) \
+	$(BUILD_TEST13) \
+	$(BUILD_UTIL1)
 
 
 # target
@@ -171,6 +181,14 @@ $(BUILD_TEST10): $(OBJS) $(OBJSC) $(TEST10_OBJS)
 
 $(BUILD_TEST11): $(OBJS) $(OBJSC) $(TEST11_OBJS)
 	@echo "[BUILD] test11"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST12): $(OBJS) $(OBJSC) $(TEST12_OBJS)
+	@echo "[BUILD] test12"
+	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
+
+$(BUILD_TEST13): $(OBJS) $(OBJSC) $(TEST13_OBJS)
+	@echo "[BUILD] test13"
 	@$(CXX) $(CXXFLAGS) -o $(BIN)/$@ $^ $(LINK_OPTS)
 
 

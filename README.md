@@ -9,6 +9,7 @@ Download Link
 [SFML](https://www.sfml-dev.org/index.php)  
 [OpenGL/glad](https://glad.dav1d.de/)  
 [GLFW](https://www.glfw.org/download.html)  
+[glm](https://github.com/g-truc/glm)  
 [imgui](https://github.com/ocornut/imgui)  
 [imgui-sfml](https://github.com/eliasdaler/imgui-sfml)  
 
@@ -18,6 +19,7 @@ GCC = 9.3.0
 SFML = 2.5.1  
 OpenGL(glad) = 4.6  
 GLFW = 3.3.4  
+glm = 0.9.8.0  
 imgui = 1.83  
 imgui-sfml = 2.3    
 
@@ -183,6 +185,8 @@ test8: same as test7, but look square inside line
 test9: Uniform, change color by time  
 test10: same as test9, but use glfw  
 test11: difine color by array  
+test12: texture  
+test13: texture  
 
 
 
@@ -212,7 +216,10 @@ make
 ### Install
 dependence packages need to install
 ```bash
+// SFML
 apt install -y libsfml-dev
+
+// GLFW
 apt install -y libglfw3 libglfw3-dev
 ```
 check if install success
@@ -223,7 +230,7 @@ dpkg -l| grep glfw
 
 default library(*.so) file is here  
 `/usr/lib/x86_64-linux-gnu/` (or `/lib/x86_64-linux-gnu/`)  
-```
+```bash
 ls -al /lib
 lrwxrwxrwx 1 root root 7 Jun 10 18:48 /lib -> usr/lib/
 ```
@@ -261,6 +268,12 @@ GLFW
 `GLFW/`  
 `glfw3.h`  
 `glfw3native.h`  
+
+
+glm  
+`/usr/local/include/glm`  
+`/usr/local/lib/x86_64-linux-gnu/cmake/glm`  
+
 
 
 
